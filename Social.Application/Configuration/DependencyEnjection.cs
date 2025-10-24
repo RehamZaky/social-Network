@@ -14,6 +14,7 @@ namespace Social.Application.Configuration
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IHashtagService, HashtagService>();
             return services;
         }
 
