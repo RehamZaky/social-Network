@@ -17,7 +17,7 @@ namespace Social.Application.Services.Interface
         public Task<List<Posts>> GetPostsByUserAsync(int userId);
 
         public Task<PostDTO> AddPostToPageAsync(int pageId, PostDTO postDTO);
-        public Task<Posts> AddPostToGroupAsync(PostGroupDTO postDTO);
+        public Task<PostGroupResponseDTO> AddPostToGroupAsync(CreatePostGroupDTO postDTO);
 
         Task<PostInteraction> AddPostInteraction(PostInteractionDTO interactionDTO);
 

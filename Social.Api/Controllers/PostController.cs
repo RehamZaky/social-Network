@@ -145,12 +145,12 @@ namespace Social.Api.Controllers
         }
 
         [HttpPost("AddPostToGroup")]
-        public async Task<IActionResult> AddPostToGroup(PostGroupDTO postDTO)
+        public async Task<IActionResult> AddPostToGroup(CreatePostGroupDTO postDTO)
         {
             try
             {
                 var result = await _postService.AddPostToGroupAsync( postDTO);
-                return Ok(ApiResponse<Posts>.SuccessResponse(result,"Add Post to the group Successfully"));
+                return Ok(ApiResponse<PostGroupResponseDTO>.SuccessResponse(result,"Add Post to the group Successfully"));
             }
             catch (KeyNotFoundException ex)
             {

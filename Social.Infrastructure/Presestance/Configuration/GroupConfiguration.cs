@@ -18,7 +18,7 @@ namespace Social.Infrastructure.Presestance.Configuration
 
             builder.HasMany(s => s.GroupMembers)
                 .WithOne(m => m.Group)
-                .HasForeignKey(s => s.GroupId);
+                .HasForeignKey(s => s.GroupId); //restrict
 
             builder.HasMany(s => s.GroupPosts)
                 .WithOne(r => r.Group)

@@ -16,7 +16,9 @@ namespace Social.Application.AutoMapper
         {
             CreateMap<Posts,PostDTO>().ReverseMap();
             CreateMap<Posts,PostEditDTO>().ReverseMap();
-            CreateMap<Posts,PostGroupDTO>().ReverseMap();
+            CreateMap<Posts,CreatePostGroupDTO>().ReverseMap();
+            CreateMap<Posts, PostGroupResponseDTO>().ReverseMap();
+            CreateMap<GroupPosts,GroupPostDTO>().ReverseMap();
             CreateMap<PostInteractionDTO,PostInteraction>().ReverseMap();
         }
     }

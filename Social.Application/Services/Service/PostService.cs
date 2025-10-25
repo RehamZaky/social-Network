@@ -56,12 +56,12 @@ namespace Social.Application.Services.Repository
             return _mapper.Map<PostDTO>(response);
         }
 
-        public async Task<Posts> AddPostToGroupAsync(PostGroupDTO postDTO)
+        public async Task<PostGroupResponseDTO> AddPostToGroupAsync(CreatePostGroupDTO postDTO)
         {
             var post = _mapper.Map<Posts>(postDTO);
             var response = await _unitOfWork.PostRepository.AddPostToGroupAsync(postDTO.GroupId, post);
             if (response == null) { throw new KeyNotFoundException(); }
-            return response;
+           return _mapper.Map<PostGroupResponseDTO>(response);
         }
 
         public async Task<PostInteraction> AddPostInteraction(PostInteractionDTO interactionDTO)
@@ -71,5 +71,6 @@ namespace Social.Application.Services.Repository
             if(response == null) { throw new KeyNotFoundException(); };
             return response;
         }
+
     }
 }
