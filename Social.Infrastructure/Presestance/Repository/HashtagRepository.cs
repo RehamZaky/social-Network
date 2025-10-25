@@ -25,25 +25,31 @@ namespace Social.Infrastructure.Presestance.Repository
             return await _context.Hashtags.FirstOrDefaultAsync(h => h.Name.ToLower() == name.ToLower());
         }
 
-        public async Task<Posts> AddHashtagToPost(string hashtag, Posts post)
+        public async Task<Posts> AddHashtagToPost(string hashtag, int postId)
         {
-            var postResponse = await _context.Posts.FirstOrDefaultAsync(i=> i.Id == post.Id);
+            var postResponse = await _context.Posts.Include(p=> p.Hashtags).FirstOrDefaultAsync(i=> i.Id == postId);
             if(postResponse != null)
             {
                 var HashtagResponse = await GetByNameAsync(hashtag);
-                if(HashtagResponse != null)
+                if(HashtagResponse == null)
                 {
-                    postResponse.Hashtags.Add(HashtagResponse);
-
+                    // create the hashtag
+                    HashtagResponse = await Post(new Hashtag() { Name = hashtag ,UserId = postResponse.userId, CreatedDate = DateTime.UtcNow});
                 }
-                else
-                {  // create the hashtag
-                    await Post(new Hashtag() { Name = hashtag ,UserId = post.userId, CreatedDate = DateTime.UtcNow});
-                }
+                 postResponse.Hashtags.Add(HashtagResponse);
+                
                 await _context.SaveChangesAsync();
                 return postResponse;
             }
             return null;
+        }
+
+        public async Task<List<Posts>> GetAllPostsOfHashtagAsync(string hashtag)
+        {
+            var hashtagResponse = await _context.Hashtags.Include(h=> h.Posts).FirstOrDefaultAsync(h => h.Name.ToLower() == hashtag.ToLower());
+
+            if(hashtagResponse == null) { return null; }
+           return hashtagResponse.Posts.ToList();
         }
     }
 

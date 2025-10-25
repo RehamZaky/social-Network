@@ -11,7 +11,9 @@ namespace Social.Domain.Interface
     public interface IHashtagRepository : IGenericRepository<Hashtag>
     {
         Task<Hashtag> GetByNameAsync(string name);
-        Task<Posts> AddHashtagToPost(string hashtag, Posts post);
+        Task<Posts> AddHashtagToPost(string hashtag, int postId);
+
+        Task<List<Posts>> GetAllPostsOfHashtagAsync(string hashtag);   
 
 
     }

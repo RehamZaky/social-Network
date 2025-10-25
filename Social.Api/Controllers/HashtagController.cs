@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Social.Application.DTO;
+using Social.Application.Exception;
 using Social.Application.Services.Interface;
+using Social.Domain.Data;
+using Social.Domain.Entities;
 
 namespace Social.Api.Controllers
 {
@@ -19,25 +22,46 @@ namespace Social.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            try { 
             var result = await _service.GetAllAsync();
-            return Ok(result);
+            return Ok(ApiResponse<List<HashtagDto>>.SuccessResponse(result.ToList(), "Get Hashtags Successfully"));
+             }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<HashtagDto>.FailResponse( "Error getting hashtags",new[] { ex.Message }));
+            }
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("GetByName/{name}")]
+        public async Task<IActionResult> GetByName(string name)
         {
-            var result = await _service.GetByIdAsync(id);
-            if (result == null) return NotFound();
-            return Ok(result);
+            try
+            {
+                var result = await _service.GetByNameAsync(name);
+                if (result == null) return NotFound();
+                return Ok(ApiResponse<HashtagDto>.SuccessResponse( result, "Get Hashtag Successfully"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<HashtagDto>.FailResponse("Error getting hashtag", new[] { ex.Message }));
+
+            }
+
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] HashtagDto dto)
         {
-            var result = await _service.CreateAsync(dto);
-            return Ok( result);
+            try
+            {
+                var result = await _service.CreateAsync(dto);
+                return Ok(ApiResponse<HashtagDto>.SuccessResponse( result,"Create Hashtag Successfully"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<HashtagDto>.FailResponse("Error Creating hashtag", new[] {ex.Message}));
+            }
         }
-
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] UpdateHashtagDto dto)
         {
@@ -49,6 +73,7 @@ namespace Social.Api.Controllers
             return Ok(result);
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -58,11 +83,36 @@ namespace Social.Api.Controllers
         }
 
         [HttpPut("AddHashtagToPost{hashtag}")]
-        public async Task<IActionResult> AddHashtagToPost(string hashtag, PostEditDTO postDTO)
+        public async Task<IActionResult> AddHashtagToPost(string hashtag, int postId)
         {
-            var result = await _service.AddHashtagToPost( hashtag,postDTO);
-            if (result == null) return NotFound();
-            return Ok(result);
+            try
+            {
+                var result = await _service.AddHashtagToPost(hashtag, postId);
+                if (result == null) return NotFound();
+                return Ok(ApiResponse<HashtagPostDTO>.SuccessResponse( result,"Hashtag added to the post Successfully"));
+            }
+            catch (Exception ex) {
+                return BadRequest(ApiResponse<HashtagDto>.FailResponse("Error Adding hashtag", new[] { ex.Message }));
+            }
+        }
+
+        [HttpGet("GetAllPostsOfHashtag")]
+        public async Task<IActionResult> GetAllPostsOfHashtag(string hashtag)
+        {
+            try
+            {
+                var result = await _service.GetAllPostsOfHashtagAsync(hashtag);
+                if (result == null) return NotFound();
+                return Ok(ApiResponse<List<PostDTO>>.SuccessResponse(result, "Hashtag added to the post Successfully"));
+            }
+            catch (KeyNotFoundException e)
+            {
+                return NotFound(ApiResponse<PostDTO>.FailResponse("Hashtag Not found",new[] {e.Message}));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<PostDTO>.FailResponse("Error Adding hashtag", new[] { ex.Message }));
+            }
         }
     }
 

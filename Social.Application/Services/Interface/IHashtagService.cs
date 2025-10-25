@@ -11,12 +11,14 @@ namespace Social.Application.Services.Interface
     public interface IHashtagService
     {
         Task<IEnumerable<HashtagDto>> GetAllAsync();
-        Task<HashtagDto> GetByIdAsync(int id);
+        Task<HashtagDto> GetByNameAsync(string hashtag);
         Task<HashtagDto> CreateAsync(HashtagDto dto);
         Task<HashtagDto> UpdateAsync(UpdateHashtagDto dto);
         Task<bool> DeleteAsync(int id);
 
-        Task<Posts> AddHashtagToPost(string hashtag,PostEditDTO dto);
+        Task<HashtagPostDTO> AddHashtagToPost(string hashtag,int postId);
+
+        public Task<List<PostDTO>> GetAllPostsOfHashtagAsync(string hashtag);
     }
 
 }

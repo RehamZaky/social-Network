@@ -8,8 +8,11 @@ namespace Social.Application.DTO
 {
     public class HashtagPostDTO
     {
-        public string PostId { get; set; }
+        public int Id { get; set; }
 
-        public string Name { get; set; }
+        public int UserId { get; set; }
+        public string Content { get; set; }
+
+        public List<UpdateHashtagDto> Hashtags { get; set; } = new List<UpdateHashtagDto>();
     }
 }

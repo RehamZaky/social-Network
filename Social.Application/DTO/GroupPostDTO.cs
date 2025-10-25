@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Social.Application.DTO
 {
-    public class PostGroupDTO
+    public class GroupPostDTO
     {
-
         public int GroupId { get; set; }
-        public string Content { get; set; }
-        public int UserId { get; set; }
-        public string Image { get; set; }
+        public int PostId { get; set; }
+
+        public int Status { get; set; }  // Enum
+        public bool IsApproved { get; set; }
     }
 }

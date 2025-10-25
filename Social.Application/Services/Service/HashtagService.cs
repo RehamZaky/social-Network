@@ -28,31 +28,27 @@ namespace Social.Application.Services.Service
             return _mapper.Map<IEnumerable<HashtagDto>>(hashtags);
         }
 
-        public async Task<HashtagDto> GetByIdAsync(int id)
+        public async Task<HashtagDto> GetByNameAsync(string hashtag)
         {
-            var hashtag = await _unitOfWork.HashtagRepository.GetById(id);
-            return _mapper.Map<HashtagDto>(hashtag);
+            var hashtagResponse = await _unitOfWork.HashtagRepository.GetByNameAsync(hashtag);
+            return _mapper.Map<HashtagDto>(hashtagResponse);
         }
 
         public async Task<HashtagDto> CreateAsync(HashtagDto dto)
         {
             var entity = _mapper.Map<Hashtag>(dto);
-            await _unitOfWork.HashtagRepository.Post(entity);
+            await _unitOfWork.GenericRepository<Hashtag>().Post(entity);
+            await _unitOfWork.CompleteAsync();
+            return _mapper.Map<HashtagDto>(entity);
+        }
+        public async Task<HashtagDto> UpdateAsync(UpdateHashtagDto dto)
+        {
+            var entity = _mapper.Map<Hashtag>(dto);
+            await _unitOfWork.GenericRepository<Hashtag>().Put(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<HashtagDto>(entity);
         }
 
-        public async Task<HashtagDto> UpdateAsync(UpdateHashtagDto dto)
-        {
-            var existing = await _unitOfWork.HashtagRepository.GetById(dto.Id);
-            if (existing == null) return null;
-
-            _mapper.Map(dto, existing);
-            await _unitOfWork.HashtagRepository.Put(existing);
-            await _unitOfWork.CompleteAsync();
-
-            return _mapper.Map<HashtagDto>(existing);
-        }
 
         public async Task<bool> DeleteAsync(int id)
         {
@@ -61,11 +57,17 @@ namespace Social.Application.Services.Service
             return true;
         }
 
-        public async Task<Posts> AddHashtagToPost(string hashtag, PostEditDTO dto)
+        public async Task<HashtagPostDTO> AddHashtagToPost(string hashtag, int postId)
         {
-           var post = _mapper.Map<Posts>( dto);
-           return await _unitOfWork.HashtagRepository.AddHashtagToPost(hashtag, post);
+           var post = await _unitOfWork.HashtagRepository.AddHashtagToPost(hashtag, postId);
+            return _mapper.Map<HashtagPostDTO>(post);    
+        }
 
+        public async Task<List<PostDTO>> GetAllPostsOfHashtagAsync(string hashtag)
+        {
+            var response = await _unitOfWork.HashtagRepository.GetAllPostsOfHashtagAsync(hashtag);
+            if (response == null) throw new KeyNotFoundException();
+           return _mapper.Map<List<PostDTO>>(response);
         }
     }
 
