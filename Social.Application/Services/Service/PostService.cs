@@ -28,13 +28,13 @@ namespace Social.Application.Services.Repository
         public async Task<Posts> Post(PostDTO t)
         {
            var post = _mapper.Map<Posts>(t);  
-            return await _unitOfWork.GenericRepository<Posts>().Post(post);
+            return await _unitOfWork.GenericRepository<Posts>().Create(post);
         }
 
         public async Task<Posts> Put(PostEditDTO t)
         {
             var post = _mapper.Map<Posts>(t);
-            return await _unitOfWork.GenericRepository<Posts>().Put(post);
+            return await _unitOfWork.GenericRepository<Posts>().Update(post);
         }
         public async Task Delete(int id)
         {

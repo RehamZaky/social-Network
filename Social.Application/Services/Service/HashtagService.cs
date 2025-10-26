@@ -37,14 +37,14 @@ namespace Social.Application.Services.Service
         public async Task<HashtagDto> CreateAsync(HashtagDto dto)
         {
             var entity = _mapper.Map<Hashtag>(dto);
-            await _unitOfWork.GenericRepository<Hashtag>().Post(entity);
+            await _unitOfWork.GenericRepository<Hashtag>().Create(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<HashtagDto>(entity);
         }
         public async Task<HashtagDto> UpdateAsync(UpdateHashtagDto dto)
         {
             var entity = _mapper.Map<Hashtag>(dto);
-            await _unitOfWork.GenericRepository<Hashtag>().Put(entity);
+            await _unitOfWork.GenericRepository<Hashtag>().Update(entity);
             await _unitOfWork.CompleteAsync();
             return _mapper.Map<HashtagDto>(entity);
         }

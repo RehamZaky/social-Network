@@ -28,14 +28,14 @@ namespace Social.Infrastructure.Presestance.Repository
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<T> Post(T t)
+        public async Task<T> Create(T t)
         {
             await _dbContext.Set<T>().AddAsync(t);
             await _dbContext.SaveChangesAsync();
             return t;
         }
 
-        public async Task<T> Put(T t)
+        public async Task<T> Update(T t)
         {
              _dbContext.Set<T>().Update(t);
             await _dbContext.SaveChangesAsync();

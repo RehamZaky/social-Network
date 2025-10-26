@@ -15,7 +15,7 @@ namespace Social.Infrastructure.Presestance.Repository
         private readonly IPageRepository _pageRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly IHashtagRepository _hashtagRepository;
-
+        private readonly IFriendRepository _friendRepository;
 
         public UnitOfWork(ApplicationDBContext context)
         {
@@ -35,6 +35,7 @@ namespace Social.Infrastructure.Presestance.Repository
 
         public IHashtagRepository HashtagRepository => _hashtagRepository ?? new HashtagRepository(_context);
 
+        public IFriendRepository FriendRepository => _friendRepository ?? new FriendRepository(_context);
 
         public async Task<int> CompleteAsync()
         {

@@ -9,10 +9,10 @@ namespace Social.Domain.Interface
     public interface IGenericRepository<T> where T : class
     {
         public Task<List<T>> GetAll();    
-        public Task<T> Post(T t);
+        public Task<T> Create(T t);
         public Task<T> GetById(int id);
 
-        public Task<T> Put(T t);
+        public Task<T> Update(T t);
         public Task Delete(int id);
     }
 }

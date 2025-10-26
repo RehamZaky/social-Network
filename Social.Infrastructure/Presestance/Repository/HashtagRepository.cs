@@ -34,7 +34,7 @@ namespace Social.Infrastructure.Presestance.Repository
                 if(HashtagResponse == null)
                 {
                     // create the hashtag
-                    HashtagResponse = await Post(new Hashtag() { Name = hashtag ,UserId = postResponse.userId, CreatedDate = DateTime.UtcNow});
+                    HashtagResponse = await Create(new Hashtag() { Name = hashtag ,UserId = postResponse.userId, CreatedDate = DateTime.UtcNow});
                 }
                  postResponse.Hashtags.Add(HashtagResponse);
                 

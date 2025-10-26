@@ -36,14 +36,14 @@ namespace Social.Application.Services.Repository
         public async Task<UserDTO> Post(UserDTO userDTO)
         {
           var user =  _mapper.Map<User>(userDTO);
-           var returnPost = await _unitOfWork.GenericRepository<User>().Post(user);
+           var returnPost = await _unitOfWork.GenericRepository<User>().Create(user);
             return _mapper.Map<UserDTO>(returnPost);
         }
 
         public async Task<UserUpdateDTO> Put(UserUpdateDTO userDTO)
         {
             var user = _mapper.Map<User>(userDTO);
-            var returnPost = await _unitOfWork.GenericRepository<User>().Put(user);
+            var returnPost = await _unitOfWork.GenericRepository<User>().Update(user);
             return _mapper.Map<UserUpdateDTO>(returnPost);
         }
         public async Task Delete(int id)

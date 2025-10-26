@@ -54,6 +54,6 @@ namespace Social.Infrastructure.Presestance.Data
 
         public DbSet<PagePosts> PagePosts { get; set; } 
 
-
+        public DbSet<Friend> Friends { get; set; }
     }
 }

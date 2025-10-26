@@ -28,6 +28,7 @@ namespace Social.Infrastructure.Configuration
             services.AddScoped<IGroupRepository,GroupRepository>();
             services.AddScoped<ICommentRepository,CommentRepository>();
             services.AddScoped<IHashtagRepository,HashtagRepository>();
+            services.AddScoped<IFriendRepository,FriendRepository>();
             return services;
 
         }

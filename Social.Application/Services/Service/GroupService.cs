@@ -34,14 +34,14 @@ namespace Social.Application.Services.Service
         public async Task<GroupDTO> Post(GroupDTO t)
         {
             var group = _mapper.Map<Group>(t);
-            var groupResponse = await _unitOfWork.GenericRepository<Group>().Post(group);
+            var groupResponse = await _unitOfWork.GenericRepository<Group>().Create(group);
             return _mapper.Map<GroupDTO>(groupResponse);
         }
 
         public async Task<GroupDTO> Put(GroupEditDTO t)
         {
             var group = _mapper.Map<Group>(t);
-            var groupResponse = await _unitOfWork.GenericRepository<Group>().Put(group);
+            var groupResponse = await _unitOfWork.GenericRepository<Group>().Update(group);
             return _mapper.Map<GroupDTO>(groupResponse);
         }
         public async Task Delete(int id)

@@ -37,14 +37,14 @@ namespace Social.Application.Services.Service
         public async Task<CommentDTO> Post(CommentDTO t)
         {
             var Comment = _mapper.Map<Comment>(t);
-            var CommentResponse = await _unitOfWork.GenericRepository<Comment>().Post(Comment);
+            var CommentResponse = await _unitOfWork.GenericRepository<Comment>().Create(Comment);
             return _mapper.Map<CommentDTO>(CommentResponse);
         }
 
         public async Task<CommentDTO> Put(CommentEditDTO t)
         {
             var Comment = _mapper.Map<Comment>(t);
-            var CommentResponse = await _unitOfWork.GenericRepository<Comment>().Put(Comment);
+            var CommentResponse = await _unitOfWork.GenericRepository<Comment>().Update(Comment);
             return _mapper.Map<CommentDTO>(CommentResponse);
         }
         public async Task Delete(int id)

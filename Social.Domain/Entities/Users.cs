@@ -36,6 +36,8 @@ namespace Social.Domain.Entities
 
         public ICollection<Hashtag> hashtags { get; set; }  
 
+        public ICollection<Friend> Friends { get; set; }
+        public ICollection<Friend> FriendsOfUser { get; set; }
 
         public int Type {  get; set; } // Enum admin ,user
     }

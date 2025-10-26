@@ -18,6 +18,8 @@ namespace Social.Application.Services.Interface
         ICommentRepository CommentRepository { get; }
         IHashtagRepository HashtagRepository { get; }
 
+        IFriendRepository FriendRepository { get; }
+
         IGenericRepository<T> GenericRepository<T>() where T : class;
         Task<int> CompleteAsync();
     }

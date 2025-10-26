@@ -31,14 +31,14 @@ namespace Social.Application.Services.Service
         public async Task<PageDTO> Post(PageDTO t)
         {
             var Page = _mapper.Map<Page>(t);
-            var PageResponse = await _unitOfWork.GenericRepository<Page>().Post(Page);
+            var PageResponse = await _unitOfWork.GenericRepository<Page>().Create(Page);
             return _mapper.Map<PageDTO>(PageResponse);
         }
 
         public async Task<PageDTO> Put(PageEditDTO t)
         {
             var Page = _mapper.Map<Page>(t);
-            var PageResponse = await _unitOfWork.GenericRepository<Page>().Put(Page);
+            var PageResponse = await _unitOfWork.GenericRepository<Page>().Update(Page);
             return _mapper.Map<PageDTO>(PageResponse);
         }
         public async Task Delete(int id)
