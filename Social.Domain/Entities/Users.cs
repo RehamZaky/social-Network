@@ -34,6 +34,8 @@ namespace Social.Domain.Entities
 
         public ICollection<GroupMember> groupMembers { get; set; }
 
+        public ICollection<Hashtag> hashtags { get; set; }  
+
 
         public int Type {  get; set; } // Enum admin ,user
     }

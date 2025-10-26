@@ -19,4 +19,9 @@ namespace Social.Domain.Entities
 
         public Posts Posts { get; set; }
     }
+
+    public class GroupPostStatus
+    {
+
+    }
 }

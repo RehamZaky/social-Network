@@ -18,7 +18,7 @@ namespace Social.Application.Services.Interface
 
         Task<HashtagPostDTO> AddHashtagToPost(string hashtag,int postId);
 
-        public Task<List<PostDTO>> GetAllPostsOfHashtagAsync(string hashtag);
+        public Task<List<PostEditDTO>> GetAllPostsOfHashtagAsync(string hashtag);
     }
 
 }

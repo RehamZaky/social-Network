@@ -22,6 +22,10 @@ namespace Social.Infrastructure.Presestance.Configuration
                 .WithMany(p => p.Hashtags)
                 .UsingEntity("PostHashtag");
 
+            builder.HasOne(h=> h.User)
+                .WithMany(p=> p.hashtags)
+                .HasForeignKey(h => h.UserId);
+
           //  ,j => j.HasKey("PostId", "HashtagId"));
 
         }

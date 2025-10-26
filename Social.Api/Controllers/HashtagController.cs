@@ -103,7 +103,7 @@ namespace Social.Api.Controllers
             {
                 var result = await _service.GetAllPostsOfHashtagAsync(hashtag);
                 if (result == null) return NotFound();
-                return Ok(ApiResponse<List<PostDTO>>.SuccessResponse(result, "Hashtag added to the post Successfully"));
+                return Ok(ApiResponse<List<PostEditDTO>>.SuccessResponse(result, "Hashtag added to the post Successfully"));
             }
             catch (KeyNotFoundException e)
             {

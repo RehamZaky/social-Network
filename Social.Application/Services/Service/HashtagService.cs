@@ -63,11 +63,11 @@ namespace Social.Application.Services.Service
             return _mapper.Map<HashtagPostDTO>(post);    
         }
 
-        public async Task<List<PostDTO>> GetAllPostsOfHashtagAsync(string hashtag)
+        public async Task<List<PostEditDTO>> GetAllPostsOfHashtagAsync(string hashtag)
         {
             var response = await _unitOfWork.HashtagRepository.GetAllPostsOfHashtagAsync(hashtag);
             if (response == null) throw new KeyNotFoundException();
-           return _mapper.Map<List<PostDTO>>(response);
+           return _mapper.Map<List<PostEditDTO>>(response);
         }
     }
 
