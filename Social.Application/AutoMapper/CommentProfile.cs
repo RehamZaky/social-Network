@@ -16,6 +16,7 @@ namespace Social.Application.AutoMapper
             CreateMap<Comment, CommentDTO>().ReverseMap();
             CreateMap<Comment, CommentEditDTO>().ReverseMap();
             CreateMap<Comment,ReplyDTO>().ReverseMap();
+            CreateMap<Comment,CommentReplyDTO>().ReverseMap();
 
         
         }

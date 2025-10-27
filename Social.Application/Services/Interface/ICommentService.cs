@@ -11,7 +11,7 @@ namespace Social.Application.Services.Interface
 {
     public interface ICommentService
     {
-        public Task<List<Comment>> GetAll();
+        public Task<List<CommentDTO>> GetAll(int postId);
 
         public Task<CommentDTO> Post(CommentDTO commentDTO);
         public Task<CommentDTO> Put(CommentEditDTO t);
@@ -21,7 +21,7 @@ namespace Social.Application.Services.Interface
 
         public Task<bool> HideAndShowComment(int commentId, bool hide);
 
-        public Task<bool> ReplyComment(ReplyDTO commentDTO);
+        public Task<CommentReplyDTO> ReplyComment(ReplyDTO commentDTO);
 
     }
 }

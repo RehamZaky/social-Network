@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Social.Application.DTO
 {
-    public class CommentEditDTO
+    public class CommentReplyDTO
     {
         public int Id { get; set; }
         public string Content { get; set; }
@@ -15,8 +15,9 @@ namespace Social.Application.DTO
         public int UserId { get; set; }
         public int PostId { get; set; }
 
-        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
         public int? ParentCommentId { get; set; } = null;
+
+        public CommentDTO ParentComment { get; set; }
 
         public string Image { get; set; }
     }

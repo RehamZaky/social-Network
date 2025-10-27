@@ -11,6 +11,8 @@ namespace Social.Domain.Interface
     {
         public Task<bool> HideAndShowComment(int commentId, bool hide);
 
-        public Task<bool> ReplyComment(int commentId, Comment comment);
+        public Task<Comment> ReplyComment(int commentId, Comment comment);
+
+        public Task<List<Comment>> GetAllComments(int postId);
     }
 }

@@ -16,9 +16,9 @@ namespace Social.Api.Controllers
         }
 
         [HttpGet("GetAllComments")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(int postId)
         {
-            var result = await _CommentService.GetAll();
+            var result = await _CommentService.GetAll(postId);
             return Ok(result);
         }
 
@@ -37,9 +37,9 @@ namespace Social.Api.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int postId)
+        public async Task<IActionResult> Delete(int commentId)
         {
-            await _CommentService.Delete(postId);
+            await _CommentService.Delete(commentId);
             return Ok();
         }
 
@@ -62,8 +62,17 @@ namespace Social.Api.Controllers
         [HttpPost("ReplyComment")]
         public async Task<IActionResult> ReplyComment( [FromBody] ReplyDTO commentDTO)
         {
-            var result = await _CommentService.ReplyComment( commentDTO);
-            return Ok(result);
+            try
+            {
+                var result = await _CommentService.ReplyComment(commentDTO);
+                return Ok(result);
+            }
+            catch (KeyNotFoundException e)
+            { return NotFound(); }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 

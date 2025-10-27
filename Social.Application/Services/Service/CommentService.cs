@@ -19,9 +19,9 @@ namespace Social.Application.Services.Service
          _mapper = mapper;
         }
 
-        public async Task<List<Comment>> GetAll()
+        public async Task<List<CommentDTO>> GetAll(int postId)
         {
-            return await _unitOfWork.GenericRepository<Comment>().GetAll();
+           return _mapper.Map<List<CommentDTO>>( await _unitOfWork.CommentRepository.GetAllComments(postId));
         }
 
         public async Task<bool> HideAndShowComment(int commentId, bool hide)
@@ -52,15 +52,16 @@ namespace Social.Application.Services.Service
              await _unitOfWork.GenericRepository<Comment>().Delete(id);
         }
 
-        public async Task<bool> ReplyComment(ReplyDTO commentDTO)
+        public async Task<CommentReplyDTO> ReplyComment(ReplyDTO commentDTO)
         {
             var comment = _mapper.Map<Comment>(commentDTO);
             var response = await _unitOfWork.CommentRepository.ReplyComment(commentDTO.CommentId, comment);
-            if(!response)
+            if(response  == null)
             {
                 throw new KeyNotFoundException();
             }
-            return response;
+            var reply = _mapper.Map<CommentReplyDTO>(response);
+            return reply;
 
         }
     }

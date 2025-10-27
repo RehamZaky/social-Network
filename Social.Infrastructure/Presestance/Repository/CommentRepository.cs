@@ -18,6 +18,11 @@ namespace Social.Infrastructure.Presestance.Repository
             _dbContext = applicationDB;
         }
 
+        public async Task<List<Comment>> GetAllComments(int postId)
+        {
+           return await _dbContext.Comments.Where(c=> c.PostId == postId).ToListAsync();
+        }
+
         public async Task<bool> HideAndShowComment(int commentId, bool hide)
         {
             var comment = await _dbContext.Comments.FindAsync(commentId);
@@ -31,7 +36,7 @@ namespace Social.Infrastructure.Presestance.Repository
             return true;
         }
 
-        public async Task<bool> ReplyComment(int commentId, Comment comment)
+        public async Task<Comment> ReplyComment(int commentId, Comment comment)
         {
             var responseComment = _dbContext.Comments.Include(i => i.Post).FirstOrDefault(i=> i.Id == commentId);
             
@@ -41,9 +46,9 @@ namespace Social.Infrastructure.Presestance.Repository
                 comment.Post = responseComment.Post;
                await _dbContext.Comments.AddAsync(comment);
                 await _dbContext.SaveChangesAsync();
-                return true;
+                return comment;
             }
-            return false;
+            return null;
         }
     }
 }
